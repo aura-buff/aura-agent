@@ -25,10 +25,15 @@ void Notification::sendAlert(const std::string& message) {
 void Notification::checkLimits(double cpu, double ram_pct, double disk_pct) {
     // Пример: Алерт если CPU > 90%
     if (cpu > 0.9 && !cpu_alert_sent) {
-        sendAlert("[Auri] High CPU Load: " + std::to_string(int(cpu * 100)) + "%");
-        cpu_alert_sent = true;
-    } else if (cpu < 0.8) {
-        cpu_alert_sent = false; // Сбрасываем флаг, если нагрузка упала
+        if (!cpu_alert_sent) { // Если алерт еще не был отправлен
+            sendAlert("⚠️ [Auri] High CPU Load: " + std::to_string(int(cpu * 100)) + "%");
+            cpu_alert_sent = true;
+        }
+    } else if (cpu < 0.5) {
+	if (cpu_alert_sent) {
+            sendAlert("✅ [Auri] CPU Load normalized: " + std::to_string(int(cpu * 100)) + "%");
+            cpu_alert_sent = false; // Сбрасываем флаг, теперь мы снова в норме
+        }
     }
 
     // Пример: Алерт если Диск > 95%
