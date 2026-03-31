@@ -1,31 +1,29 @@
-# 🌟 Aura Agent
+# Aura Agent
 
-**High-performance autonomous AI agent** built in modern C++.
+**High-performance modular C++ application**
 
-Aura Agent is a lightweight, fast and extensible autonomous agent capable of reasoning, tool usage, and long-running task execution.
+Aura Agent is a lightweight, efficient and well-structured C++ project built with focus on performance, maintainability and clean architecture.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-- **High Performance** — Written in modern C++ for maximum speed and efficiency
-- **Autonomous Reasoning** — Advanced decision-making and multi-step planning
-- **Modular Architecture** — Clean separation between core, libraries and services
-- **Tool Integration** — Easy extension with custom tools and external APIs
-- **Production Ready** — Designed with observability, logging and reliability in mind
-- **Cross-platform** — Supports Linux, Windows and macOS
+- Modern C++20 / C++23 codebase
+- Clean and modular project structure
+- High performance with low overhead
+- Easy extensibility through libraries and services
+- Ready for production deployment
+- Docker support
+- Optional Prometheus metrics for monitoring
 
 ## 🛠️ Tech Stack
 
 - **Language**: C++20 / C++23
 - **Build System**: CMake
-- **Core Libraries**: 
-  - Standard Template Library (STL)
-  - spdlog (logging)
-  - nlohmann/json (JSON handling)
-  - cURL / HTTP client (optional)
-- **Monitoring**: Prometheus client (optional)
+- **Logging**: spdlog
+- **JSON Processing**: nlohmann/json
 - **Containerization**: Docker
+- **Monitoring**: Prometheus (optional)
 
 ## 🚀 Quick Start
 
@@ -35,14 +33,15 @@ Aura Agent is a lightweight, fast and extensible autonomous agent capable of rea
 - CMake 3.20+
 - Git
 
-### Building the Project
+### Building from Source
 
 ```bash
 git clone https://github.com/aura-buff/aura-agent.git
 cd aura-agent
+
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build . --config Release
+cmake --build . --config Release -j$(nproc)
 ```
 
 Running the Agent
