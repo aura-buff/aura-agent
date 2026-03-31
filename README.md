@@ -1,39 +1,56 @@
 # 🌟 Aura Agent
 
-**An intelligent autonomous AI agent** designed to perform complex tasks with autonomy, reasoning, and tool integration.
+**High-performance autonomous AI agent** built in modern C++.
 
-Aura Agent leverages advanced language models and modular architecture to solve real-world problems efficiently and reliably.
+Aura Agent is a lightweight, fast and extensible autonomous agent capable of reasoning, tool usage, and long-running task execution.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- **Autonomous Task Execution** — Handles multi-step workflows with built-in reasoning
-- **Modular Architecture** — Clean separation of concerns with `libs`, `services`, and `src`
-- **Extensible Tool Integration** — Easy addition of new capabilities and external services
-- **Scalable Design** — Ready for both local development and production deployment
-- **Observability Ready** — Built with monitoring in mind (Prometheus + Grafana compatible)
+- **High Performance** — Written in modern C++ for maximum speed and efficiency
+- **Autonomous Reasoning** — Advanced decision-making and multi-step planning
+- **Modular Architecture** — Clean separation between core, libraries and services
+- **Tool Integration** — Easy extension with custom tools and external APIs
+- **Production Ready** — Designed with observability, logging and reliability in mind
+- **Cross-platform** — Supports Linux, Windows and macOS
 
 ## 🛠️ Tech Stack
 
-- **Language**: Python
-- **Core**: Advanced LLM orchestration
-- **Structure**: Modular services and libraries
-- **Monitoring**: Prometheus, Grafana (optional)
+- **Language**: C++20 / C++23
+- **Build System**: CMake
+- **Core Libraries**: 
+  - Standard Template Library (STL)
+  - spdlog (logging)
+  - nlohmann/json (JSON handling)
+  - cURL / HTTP client (optional)
+- **Monitoring**: Prometheus client (optional)
 - **Containerization**: Docker
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.10+
+- C++20 compatible compiler (GCC 11+, Clang 14+, MSVC 2022+)
+- CMake 3.20+
 - Git
-- Docker (optional, for containerized setup)
 
-### Installation
-
-1. Clone the repository:
+### Building the Project
 
 ```bash
 git clone https://github.com/aura-buff/aura-agent.git
 cd aura-agent
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release
+```
+
+Running the Agent
+```bash
+./aura-agent
+```
+Or using Docker:
+```bash
+docker build -t aura-agent .
+docker run --rm -it aura-agent
+```
