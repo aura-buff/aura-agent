@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "../libs/metrics.hpp"
+#include "../services/notification.cpp"
 
 int main() {
     using namespace prometheus;
@@ -18,14 +19,22 @@ int main() {
     
     exposer.RegisterCollectable(registry);
 
-    std::cout << "Aura Agent started on port 3100..." << std::endl;
-    std::cout << "Metrics available at http://localhost:3100/metrics" << std::endl;
+    std::cout << "[Auri] Aura Agent started on port 3100..." << std::endl;
+    std::cout << "[Auri] Metrics available at http://localhost:3100/metrics" << std::endl;
+    
+    Notification notifier("8494719218:AAFWPF4G5RzCDSYxfRPFrL9Zz_TT41JNJdE", "6381133435");
+
 
     while (true) {
         try {
             metrics.updateAll();
+	    notifier.checkLimits(
+	    	metrics.getCpuLoad(),
+		metrics.getRamUsagePct(),
+		metrics.getDiskUsagePct()
+	    );
         } catch (const std::exception& e) {
-            std::cerr << "Error updating metrics: " << e.what() << std::endl;
+            std::cerr << "[Auri] Error updating metrics: " << e.what() << std::endl;
         }
         std::this_thread::sleep_for(std::chrono::seconds(5));
     }

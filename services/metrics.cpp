@@ -41,6 +41,7 @@ void Metrics::updateRamMetrics() {
     }
     ram_total.Set(total * 1024);
     ram_available.Set(available * 1024);
+    last_ram_pct = ((total - available) / total) * 100.0;
 }
 
 void Metrics::updateCpuMetrics() {
@@ -48,6 +49,7 @@ void Metrics::updateCpuMetrics() {
     double load;
     if (file >> load) {
         cpu_load.Set(load);
+	last_cpu_load = load;
     }
 }
 

@@ -11,6 +11,10 @@
 class Metrics {
 public:
     explicit Metrics(std::shared_ptr<prometheus::Registry> registry);
+    
+    double getCpuLoad() const { return last_cpu_load; }
+    double getRamUsagePct() const { return last_ram_pct; }
+    double getDiskUsagePct() const { return last_disk_pct; }
 
     // Основные методы обновления данных
     void updateAll();
@@ -20,6 +24,10 @@ public:
     void updateNetworkMetrics();
 
 private:
+    double last_cpu_load = 0.0;
+    double last_ram_pct = 0.0;
+    double last_disk_pct = 0.0;
+
     // --- RAM ---
     prometheus::Family<prometheus::Gauge>& ram_family;
     prometheus::Gauge& ram_total;

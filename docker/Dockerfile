@@ -1,5 +1,5 @@
 # Этап сборки
-FROM ubuntu:22.04 AS builde
+FROM ubuntu:22.04 AS builder
 RUN apt-get update && apt-get install -y \
     build-essential cmake git libcurl4-openssl-dev zlib1g-dev
 
@@ -23,4 +23,4 @@ COPY --from=builder /app/build/aura-agent /usr/local/bin/aura-agent
 RUN ldconfig
 
 EXPOSE 3100
-CMD ["aura-agent"]r
+CMD ["aura-agent"]
