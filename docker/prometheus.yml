@@ -1,0 +1,7 @@
+global:
+  scrape_interval 5s # Как часто опрашивать агента
+
+scrape_configs:
+  - job_name: 'aura-agent'
+    static_configs:
+      - targets: ['aura-agent:3100'] # Имя сервиса из docker-compose
