@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   aura-agent:
-    build: 
-     context: ..
+    build:
+      context: ..
       dockerfile: docker/Dockerfile
     container_name: aura-agent
     ports:
@@ -24,4 +24,4 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin 
+      - GF_SECURITY_ADMIN_PASSWORD=admin
