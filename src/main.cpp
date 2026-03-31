@@ -22,7 +22,7 @@ int main() {
     std::cout << "[Auri] Aura Agent started on port 3100..." << std::endl;
     std::cout << "[Auri] Metrics available at http://localhost:3100/metrics" << std::endl;
     
-    Notification notifier("8494719218:AAFWPF4G5RzCDSYxfRPFrL9Zz_TT41JNJdE", "6381133435");
+    Notification notifier("BOT_API", "CHAT_ID");
 
 
     while (true) {
