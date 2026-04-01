@@ -53,3 +53,8 @@ Or using Docker:
 docker build -t aura-agent .
 docker run --rm -it aura-agent
 ```
+Launch on Solaris SPARC
+```bash
+
+g++ -O2 solaris.cpp solaris_metrics.cpp -o aura-agent -lsocket -lnsl -lpthread
+```
