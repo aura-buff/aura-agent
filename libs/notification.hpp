@@ -12,7 +12,7 @@ public:
     
     // Проверка порогов (Thresholds)
     void checkLimits(double cpu, double ram_usage_pct, double disk_usage_pct);
-
+    void notifyDiscovery(std::string ip, std::string os);
 private:
     std::string bot_token;
     std::string chat_id;

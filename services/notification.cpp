@@ -41,3 +41,11 @@ void Notification::checkLimits(double cpu, double ram_pct, double disk_pct) {
         sendAlert("[Auri]🚨 Disk Space Critical: " + std::to_string(int(disk_pct)) + "% used!");
     }
 }
+
+void Notification::notifyDiscovery(std::string ip, std::string os) {
+    std::string msg = "🚀 **New Agent Discovered!**\n"
+                      "📍 IP: " + ip + "\n"
+                      "🖥 OS: " + os + "\n"
+                      "✅ Added to monitoring automatically.";
+    sendAlert(msg);
+}

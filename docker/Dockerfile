@@ -1,7 +1,7 @@
 # Этап сборки
 FROM ubuntu:22.04 AS builder
 RUN apt-get update && apt-get install -y \
-    build-essential cmake git libcurl4-openssl-dev zlib1g-dev
+    build-essential cmake git libcurl4-openssl-dev zlib1g-dev nlohmann-json3-dev
 
 # Копируем и собираем prometheus-cpp (как мы делали вручную)
 WORKDIR /libs

@@ -6,7 +6,8 @@
 #include <iostream>
 
 #include "../libs/metrics.hpp"
-#include "../services/notification.cpp"
+#include "../libs/notification.hpp"
+#include "../libs/discovery.hpp"
 
 int main() {
     using namespace prometheus;
@@ -14,9 +15,10 @@ int main() {
     auto registry = std::make_shared<Registry>();
 
     Metrics metrics(registry);
-
     Exposer exposer{"0.0.0.0:3100"};
-    
+    NetworkScanner scanner("/app/src/config.json");
+
+    scanner.startAutoScan(300);
     exposer.RegisterCollectable(registry);
 
     std::cout << "[Auri] Aura Agent started on port 3100..." << std::endl;

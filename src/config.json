@@ -1,0 +1,23 @@
+{
+  "discovery": {
+    "agent_port": 3100,
+    "scan_interval_seconds": 300,
+    "timeout_ms": 200
+  },
+  "networks": [
+    {
+      "name": "Main_Office_LAN",
+      "subnet": "192.168.1.0",
+      "mask": 24
+    },
+    {
+      "name": "Solaris_Legacy_Segment",
+      "subnet": "10.0.1.0",
+      "mask": 24
+    }
+  ],
+  "notifications": {
+    "enabled": true,
+    "channel": "telegram"
+  }
+}

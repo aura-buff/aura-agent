@@ -16,6 +16,8 @@ find_package(prometheus-cpp CONFIG REQUIRED)
 set(SOURCES
     src/main.cpp
     services/metrics.cpp
+    services/discovery.cpp
+    services/notification.cpp
     # Если добавишь notification.cpp или другие — просто допиши их сюда
 )
 
