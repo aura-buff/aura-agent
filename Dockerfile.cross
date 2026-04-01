@@ -1,0 +1,18 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    gcc-sparc64-linux-gnu \
+    g++-sparc64-linux-gnu \
+    make
+
+WORKDIR /app
+COPY . .
+
+# Собираем напрямую через g++ (без CMake, так проще)
+RUN sparc64-linux-gnu-g++ -O3 -static \
+    src/solaris.cpp services/solaris_metrics.cpp \
+    -o aura-agent-solaris \
+    -lpthread
+
+# Если на Solaris возникнут проблемы с линковкой, 
+# уберем -static и добавим -lsocket -lnsl при запуске на самом сервере.

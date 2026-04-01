@@ -3,27 +3,21 @@ project(aura-agent-solaris)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Добавляем флаги для Solaris
-if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
-    add_definitions(-D__sun -DSOLARIS)
-    # kstat — для метрик, nsl и socket — для сети на Solaris
-    set(SOLARIS_LIBS "kstat" "nsl" "socket")
-endif()
-
-# Ищем prometheus-cpp (он должен быть собран статически под SPARC)
+# Ищем библиотеку, которую мы только что установили в /usr/sparc64-linux-gnu/
 find_package(prometheus-cpp CONFIG REQUIRED)
 
 add_executable(aura-agent-solaris 
     src/solaris.cpp 
-    services/metrics_solaris.cpp
+    services/solaris_metrics.cpp
 )
 
+# Линкуем ядро прометея и системные либы Solaris (они нужны для запуска на целевой машине)
 target_link_libraries(aura-agent-solaris 
     PRIVATE 
     prometheus-cpp::core
-    ${SOLARIS_LIBS}
-    threads
+    prometheus-cpp::pull
+    # Эти либы будут искаться уже на самом Solaris при запуске
+    kstat
+    nsl
+    socket
 )
-
-# Статическая линковка — залог того, что "закинул и запустил" сработает
-set_target_properties(aura-agent-solaris PROPERTIES LINK_FLAGS "-static")
