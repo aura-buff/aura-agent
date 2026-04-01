@@ -1,0 +1,12 @@
+CC=g++
+CFLAGS=-Wall -O2
+# Обязательно линкуем библиотеку kstat и curl дляуведомлений
+LIBS=-lkstat -lcurl
+
+all: aura-agent-solaris
+
+aura-agent-solaris: main.cpp services/solaris_metrics.cpp services/notification.cpp
+	$(CC) $(CFLAGS) -D__sun -o aura-agent-solaris main.cpp services/solaris_metrics.cpp services/notification.cpp $(LIBS)
+
+clean:
+	rm -f aura-agent-solaris 
