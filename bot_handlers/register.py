@@ -1,7 +1,9 @@
 import json
+import os
 import asyncio
-from aiogram import Bot, Dispatcher, types, filters
-from aiogram.types import ChatMemberStatus
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.filters import Command  # Импортируем Command напрямую
+from aiogram.enums import ChatMemberStatus
 
 TOKEN = "8494719218:AAFWPF4G5RzCDSYxfRPFrL9Zz_TT41JNJdE"
 CHANNEL_ID = "@auralith_it" # ID канала (через @ или ID)
@@ -33,7 +35,7 @@ def save_user(user_id):
         return True
     return False
 
-@dp.message(filters.Command("start"))
+@dp.message(Command("start"))
 async def start_handler(message: types.Message):
     user_id = message.chat.id
     

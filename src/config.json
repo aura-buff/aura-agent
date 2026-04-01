@@ -17,7 +17,7 @@
     }
   ],
   "notifications": {
-    "enabled": true,
-    "channel": "telegram"
+    "bot_token": "8494719218:AAFWPF4G5RzCDSYxfRPFrL9Zz_TT41JNJdE",
+    "chat_id": "ТВОЙ_ID_ТУТ"
   }
 }

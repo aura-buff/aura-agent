@@ -10,19 +10,19 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <netinet/in.h>
-
+#include "notification.hpp"
 // Конструктор: загружаем конфиг сразу при создании сканера
 NetworkScanner::NetworkScanner(const std::string& configPath) {
     std::ifstream f(configPath);
     if (f.is_open()) {
         nlohmann::json data = nlohmann::json::parse(f);
-        
+
         // Парсим основные настройки
         config.agent_port = data["discovery"]["agent_port"];
         config.timeout_ms = data["discovery"]["timeout_ms"];
         config.scan_interval = data["discovery"]["scan_interval_seconds"];
 
-        // Парсим список сетей для сканирования
+        // Парсим список сетей
         for (auto& net : data["networks"]) {
             Network n;
             n.name = net["name"];
@@ -30,7 +30,16 @@ NetworkScanner::NetworkScanner(const std::string& configPath) {
             n.mask = net["mask"];
             networks.push_back(n);
         }
-        std::cout << "[INIT] Config loaded. Target port: " << config.agent_port << std::endl;
+
+        // Берем только ТОКЕН из конфига. 
+        // value() защитит от вылета, если ключа нет.
+        std::string token = data["notifications"].value("bot_token", "");
+        
+        // Инициализируем notifier с пустым ID (мы заполним его позже из users.json)
+        this->notifier = new Notification(token, "");
+        this->scanCounter = 0;
+
+        std::cout << "[INIT] Config loaded. Telegram Notifier ready (waiting for users)." << std::endl;
     } else {
         std::cerr << "[ERROR] Could not open config file: " << configPath << std::endl;
     }
@@ -137,4 +146,33 @@ void NetworkScanner::scanAll() {
     std::cout << "[Auri DISCOVERY] Total IPs checked: " << totalChecked << std::endl;
     std::cout << "[Auri DISCOVERY] Agents found: " << foundCount << std::endl;
     std::cout << "------------------------------------------" << std::endl;
+
+    this->scanCounter++;
+
+    if (this->scanCounter >= 12) {
+        // Читаем список пользователей из файла, который создает Python
+        std::ifstream userFile("users.json");
+        if (userFile.is_open()) {
+            try {
+                nlohmann::json users = nlohmann::json::parse(userFile);
+                
+                if (users.is_array()) {
+                    for (auto& user_id : users) {
+                        // Преобразуем ID в строку (Python пишет числа)
+                        std::string cid = std::to_string(user_id.get<long long>());
+                        
+                        // Отправляем отчет конкретному пользователю
+                        // (Предполагается, что в классе Notification есть метод для смены ID или отправки по ID)
+                        notifier->sendDiscoveryReport(totalChecked, discoveredIPs.size(), discoveredIPs, cid);
+                    }
+                }
+            } catch (const std::exception& e) {
+                std::cerr << "[ERROR] Failed to parse users.json: " << e.what() << std::endl;
+            }
+        } else {
+            std::cerr << "[WARN] users.json not found. No one to notify." << std::endl;
+        }
+
+        this->scanCounter = 0;
+    }
 }

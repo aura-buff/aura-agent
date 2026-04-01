@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <nlohmann/json.hpp>
+#include "notification.hpp"
 
 struct Network {
     std::string name;
@@ -26,9 +27,12 @@ public:
 private:
     bool checkAgent(const std::string& ip);
     bool checkPort(const std::string& ip, int port); // Объявляем тут!
-    void saveTargets(const std::vector<std::string>& ips); // И тут!
-
+    void saveTargets(const std::vector<std::string>& ips); 
     std::vector<Network> networks;
+
+    int scanCounter = 0; 
+    Notification* notifier = nullptr;
+
     ScannerConfig config; // Теперь переменная config будет видна в .cpp
 };
 

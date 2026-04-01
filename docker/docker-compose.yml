@@ -12,6 +12,7 @@ services:
       - ./../src/config.json:/app/src/config.json
       - ./../src/target.json:/app/src/target.json
       - ./../libs:/app/libs
+      - ..:/app:rw
     restart: always
 
   prometheus:
