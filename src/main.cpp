@@ -17,9 +17,9 @@ int main() {
     Metrics metrics(registry);
     Exposer exposer{"0.0.0.0:3100"};
     NetworkScanner scanner("/app/src/config.json");
-
-    scanner.startAutoScan(300);
+    
     exposer.RegisterCollectable(registry);
+    scanner.startAutoScan(300);
 
     std::cout << "[Auri] Aura Agent started on port 3100..." << std::endl;
     std::cout << "[Auri] Metrics available at http://localhost:3100/metrics" << std::endl;

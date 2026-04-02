@@ -6,7 +6,8 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
     container_name: aura-agent
-    network_mode: "host"
+    ports: 
+      - "3100:3100"
     volumes:
       # Используем прямые пути к файлам
       - ./../src/config.json:/app/src/config.json

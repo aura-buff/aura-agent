@@ -2,7 +2,7 @@
 
 # Запускаем бота-регистратора
 echo "[SYSTEM] Starting Python Register Bot..."
-python3 /app/bot_handlers/register.py &
+# python3 /app/bot_handlers/register.py &
 
 # Ждем немного
 sleep 2
